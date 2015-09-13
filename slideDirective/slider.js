@@ -37,8 +37,7 @@ app.directive('slideImageComparison', function($window) {
 	}
 
 	return {
-		restrict: 'AE',
-		replace: true,
+		restrict: 'E',
 		scope: {
 			imageInfo: '=info'
 		},
@@ -46,17 +45,19 @@ app.directive('slideImageComparison', function($window) {
 
         	var w = angular.element($window);
 
+        	var container = angular.element(elem[0].querySelector('.slide-comb'));
+
 			// Adjust resize image
 			var resized = angular.element(elem[0].querySelector('.resized'));
 			var resizedImage = elem[0].querySelector('.resized img');
 			angular.element(resizedImage).css({
-				width: elem.prop('offsetWidth')+'px'
+				width: container.prop('offsetWidth')+'px'
 			})
 
 			// Change resized image width on window resize
 			w.bind('resize', function () {
 				angular.element(resizedImage).css({
-					width: elem.prop('offsetWidth')+'px'
+					width: container.prop('offsetWidth')+'px'
 				})
 			});
 
@@ -64,7 +65,7 @@ app.directive('slideImageComparison', function($window) {
 			var divider = angular.element(elem[0].querySelector('.divider'));
 
 			// Bind move event
-			moveOver(divider, resized, elem);
+			moveOver(divider, resized, container);
 
 		},
 		templateUrl: 'slideDirective/slider.html'
