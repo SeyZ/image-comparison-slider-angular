@@ -1,4 +1,4 @@
-app.directive('slideImageComparison', function() {
+app.directive('slideImageComparison', function($window) {
 
 	function moveOver(handle, resized, container) {
 		
@@ -44,12 +44,21 @@ app.directive('slideImageComparison', function() {
 		},
 		link: function(scope, elem, attr) {
 
+        	var w = angular.element($window);
+
 			// Adjust resize image
 			var resized = angular.element(elem[0].querySelector('.resized'));
 			var resizedImage = elem[0].querySelector('.resized img');
 			angular.element(resizedImage).css({
 				width: elem.prop('offsetWidth')+'px'
 			})
+
+			// Change resized image width on window resize
+			w.bind('resize', function () {
+				angular.element(resizedImage).css({
+					width: elem.prop('offsetWidth')+'px'
+				})
+			});
 
 			// Get divider
 			var divider = angular.element(elem[0].querySelector('.divider'));
