@@ -9,12 +9,14 @@ app.directive('slideImageComparison', function() {
 			containerOffsetTop = container.prop('offsetTop'),
 			containerWidth = container.prop('offsetWidth');
 
+		var moveSlide = function(e) {
 
-		container[0].addEventListener('mousemove', function(e) {
+			var pageX = e.pageX || e.targetTouches[0].pageX;
+			var pageY = e.pageY || e.targetTouches[0].pageY;
 
 			move = {
-				left: e.pageX - containerOffsetLeft,
-				top: e.pageY - containerOffsetTop
+				left: pageX - containerOffsetLeft,
+				top: pageY - containerOffsetTop
 			};
 
 			moveWidth = (move.left - 1)*100/containerWidth+'%';
@@ -26,7 +28,11 @@ app.directive('slideImageComparison', function() {
 				width: moveWidth
 			});
 
-		})
+		}
+
+		// Support desktop + touch
+		container[0].addEventListener('touchmove', moveSlide, false);
+		container[0].addEventListener('mousemove', moveSlide, false);
 
 	}
 

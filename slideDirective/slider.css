@@ -25,3 +25,10 @@ div.slide-comb .divider {
 	margin-left: -2px;
 	background: rgba(0,0,0,.5);
 }
+
+@media (max-width: 767px) {
+	div.slide-comb {
+		width: 300px;
+		height: 200px;
+	}
+}
